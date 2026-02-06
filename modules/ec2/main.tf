@@ -1,14 +1,9 @@
 locals {
   is_spot = var.market_type == "spot"
 
-  ami_owners = {
-    "ubuntu-latest"       = ["099720109477"]
-    "amazonlinux2-latest" = ["137112412989"]
-  }
-
-  ami_name_filters = {
-    "ubuntu-latest"       = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
-    "amazonlinux2-latest" = "amzn2-ami-hvm-*-x86_64-gp2"
+  ami_ssm_parameters = {
+    "ubuntu-latest"       = "/aws/service/canonical/ubuntu/server/jammy/stable/current/amd64/hvm/ebs-gp2/ami-id"
+    "amazonlinux2-latest" = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
   }
 
   additional_volume_sizes = length(var.volume_sizes) > 1 ? slice(var.volume_sizes, 1, length(var.volume_sizes)) : []
@@ -22,20 +17,9 @@ data "aws_subnet" "selected" {
   id = var.subnet_id
 }
 
-data "aws_ami" "selected" {
-  count       = var.ami_id == null ? 1 : 0
-  most_recent = true
-  owners      = local.ami_owners[var.ami_lookup]
-
-  filter {
-    name   = "name"
-    values = [local.ami_name_filters[var.ami_lookup]]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+data "aws_ssm_parameter" "selected" {
+  count = var.ami_id == null ? 1 : 0
+  name  = local.ami_ssm_parameters[var.ami_lookup]
 }
 
 resource "aws_kms_key" "volume" {
@@ -136,7 +120,7 @@ resource "aws_iam_instance_profile" "this" {
 
 resource "aws_instance" "this" {
   count         = var.instance_count
-  ami           = var.ami_id != null ? var.ami_id : data.aws_ami.selected[0].id
+  ami           = var.ami_id != null ? var.ami_id : data.aws_ssm_parameter.selected[0].value
   instance_type = var.instance_type
   subnet_id     = var.subnet_id
 
