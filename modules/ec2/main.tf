@@ -148,7 +148,7 @@ resource "aws_iam_instance_profile" "this" {
 }
 
 resource "aws_instance" "this" {
-  count         = var.instance_count
+  count = var.instance_count
   ami = var.ami_id != null ? var.ami_id : (
     var.ami_lookup_mode == "ssm" ? data.aws_ssm_parameter.selected[0].value : data.aws_ami.selected[0].id
   )
