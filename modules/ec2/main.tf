@@ -12,6 +12,7 @@ locals {
     "ubuntu-latest"       = ["099720109477"]
     "ubuntu-24.04"        = ["099720109477"]
     "ubuntu-22.04"        = ["099720109477"]
+    "ubuntu-16.04"        = ["099720109477"]
     "amazonlinux2-latest" = ["137112412989"]
   }
 
@@ -19,6 +20,7 @@ locals {
     "ubuntu-latest"       = "ubuntu/images/hvm-ssd*/ubuntu-*-amd64-server-*"
     "ubuntu-24.04"        = "ubuntu/images/hvm-ssd*/ubuntu-noble-24.04-amd64-server-*"
     "ubuntu-22.04"        = "ubuntu/images/hvm-ssd*/ubuntu-jammy-22.04-amd64-server-*"
+    "ubuntu-16.04"        = "ubuntu/images/hvm-ssd*/ubuntu-xenial-16.04-amd64-server-*"
     "amazonlinux2-latest" = "amzn2-ami-hvm-*-x86_64-gp2"
   }
 
