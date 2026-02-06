@@ -66,7 +66,7 @@ module "ec2" {
 | `ami_lookup_mode` | `string` | `"ssm"` | Lookup mode: `ssm` or `filter`. |
 | `ami_ssm_parameter_name` | `string` | `null` | Override SSM parameter name for AMI lookup (ssm mode). |
 | `ami_name_filter_override` | `string` | `null` | Override AMI name filter (filter mode). |
-| `ami_owners_override` | `list(string)` | `[]` | Override AMI owners (filter mode). |
+| `ami_owners_override` | `list(string)` | `[]` | Override AMI owners (filter mode). If empty, no owners filter is applied. |
 | `volume_sizes` | `list(number)` | `[]` | Disk sizes (GiB). The first is root. |
 | `volume_type` | `string` | `"gp3"` | EBS volume type. |
 | `volume_encrypted` | `bool` | `false` | Encrypt volumes. |

@@ -44,7 +44,7 @@ data "aws_ssm_parameter" "selected" {
 data "aws_ami" "selected" {
   count       = local.use_filter ? 1 : 0
   most_recent = true
-  owners      = length(var.ami_owners_override) > 0 ? var.ami_owners_override : local.ami_owners[var.ami_lookup]
+  owners      = length(var.ami_owners_override) > 0 ? var.ami_owners_override : null
 
   filter {
     name   = "name"
