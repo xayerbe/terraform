@@ -2,8 +2,8 @@ locals {
   is_spot = var.market_type == "spot"
 
   ami_ssm_parameters = {
-    "ubuntu-latest"       = "/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp2/ami-id"
-    "ubuntu-24.04"        = "/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp2/ami-id"
+    "ubuntu-latest"       = "/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp3/ami-id"
+    "ubuntu-24.04"        = "/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp3/ami-id"
     "ubuntu-22.04"        = "/aws/service/canonical/ubuntu/server/jammy/stable/current/amd64/hvm/ebs-gp2/ami-id"
     "amazonlinux2-latest" = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
   }
